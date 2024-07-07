@@ -1,0 +1,31 @@
+Here are the modified Postman requests for all the query functions defined in the provided chaincode.
+
+ 1. queryProduct
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "queryProduct",
+        "productID": "PROD3"
+    }
+}
+
+
+
+ 2. queryAllProducts
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "queryAllProducts"
+    }
+}
+
+
+These requests should cover all the query functions defined in the provided chaincode. Each request is designed to invoke a specific function with the required parameters.

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Supply Chain Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: hsl(123, 29%, 69%);
+            color: white;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .form-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-section input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-section button {
+            background-color:hsl(123, 29%, 69%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-section button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        const apiUrl = 'http://localhost:4000/tx';
+        
+        async function sendRequest(data) {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            console.log(result);
+            alert(JSON.stringify(result, null, 2));
+        }
+
+        function registerUser() {
+            const data = {
+                userId: document.getElementById('userId').value,
+                orgMSP: document.getElementById('orgMSP').value
+            };
+            fetch('http://localhost:4000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+              .then(result => {
+                  console.log(result);
+                  alert(JSON.stringify(result, null, 2));
+              });
+        }
+
+        function queryProduct() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'queryProduct',
+                    productID: document.getElementById('productID').value,
+                }
+            };
+            sendRequest(data);
+        }
+
+        function queryAllProducts() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'queryAllProducts'
+                }
+            };
+            sendRequest(data);
+        }
+
+        function initLedger() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'initLedger'
+                }
+            };
+            sendRequest(data);
+        }
+
+        function createProduct() {
+            const productID = document.getElementById('createProductID').value;
+            const productName = document.getElementById('productName').value;
+            const quantity = document.getElementById('quantity').value;
+            const cost = document.getElementById('cost').value;
+            const role = document.getElementById('createRole').value;
+            const organic = document.getElementById('organic').value;
+            const desc = document.getElementById('desc').value;
+            const status = document.getElementById('status').value;
+            const date = document.getElementById('date').value;
+
+            console.log('Role:', role);
+
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'createProduct',
+                    productID: productID,
+                    productName: productName,
+                    quantity: quantity,
+                    cost: cost,
+                    role: role,
+                    organic: organic,
+                    desc: desc,
+                    status: status,
+                    date: date
+                }
+            };
+            sendRequest(data);
+        }
+
+        function setOrganic() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'setOrganic',
+                    productID: document.getElementById('organicProductID').value,
+                    role: document.getElementById('organicRole').value
+                }
+            };
+            sendRequest(data);
+        }
+
+        function updateStatus() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'updateStatus',
+                    productID: document.getElementById('statusProductID').value,
+                    status: document.getElementById('status').value,
+                    role: document.getElementById('statusRole').value
+                }
+            };
+            sendRequest(data);
+        }
+
+        function buyProduct() {
+            const data = {
+                chaincodeName: 'fabcar',
+                channelName: 'mychannel',
+                userId: 'rayana',
+                orgMSP: 'Org2MSP',
+                data: {
+                    function: 'buyProduct',
+                    productID: document.getElementById('buyProductID').value,
+                    quantity: document.getElementById('buyQuantity').value,
+                    role: document.getElementById('buyRole').value
+                }
+            };
+            sendRequest(data);
+        }
+    </script>
+</head>
+<body>
+    <h1>Agricultural Supply Chain Management System</h1>
+    <div class="container">
+        <div class="form-section">
+            <h2>Register User</h2>
+            <input type="text" id="userId" placeholder="User ID">
+            <input type="text" id="orgMSP" placeholder="Org MSP">
+            <button onclick="registerUser()">Register</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Query Product</h2>
+            <input type="text" id="productID" placeholder="Product ID">
+            <button onclick="queryProduct()">Query</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Query All Products</h2>
+            <button onclick="queryAllProducts()">Query All</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Init Ledger</h2>
+            <button onclick="initLedger()">Init Ledger</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Create Product</h2>
+            <input type="text" id="createProductID" placeholder="Product ID">
+            <input type="text" id="productName" placeholder="Product Name">
+            <input type="text" id="quantity" placeholder="Quantity">
+            <input type="text" id="cost" placeholder="Cost">
+            <input type="text" id="createRole" placeholder="Role">
+            <input type="text" id="organic" placeholder="Organic">
+            <input type="text" id="desc" placeholder="Description">
+            <input type="text" id="status" placeholder="Status">
+            <input type="text" id="date" placeholder="Date">
+            <button onclick="createProduct()">Create</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Set Organic</h2>
+            <input type="text" id="organicProductID" placeholder="Product ID">
+            <input type="text" id="organicRole" placeholder="Role">
+            <button onclick="setOrganic()">Set Organic</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Update Status</h2>
+            <input type="text" id="statusProductID" placeholder="Product ID">
+            <input type="text" id="status" placeholder="Status">
+            <input type="text" id="statusRole" placeholder="Role">
+            <button onclick="updateStatus()">Update Status</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Buy Product</h2>
+            <input type="text" id="buyProductID" placeholder="Product ID">
+            <input type="text" id="buyQuantity" placeholder="Quantity">
+            <input type="text" id="buyRole" placeholder="Role">
+            <button onclick="buyProduct()">Buy</button>
+        </div>
+    </div>
+</body>
+</html>

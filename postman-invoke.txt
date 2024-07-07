@@ -1,0 +1,89 @@
+Here are the Postman requests for invoking each function in the chaincode:
+
+ 
+
+ 2. initLedger
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "initLedger"
+    }
+}
+
+
+ 3. createProduct
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "createProduct",
+        "productID": "PROD1234",
+        "productName": "Barley",
+        "quantity": "300",
+        "cost": "20",
+        "role": "farmer",
+        "organic": "false",
+        "desc": "Grown in dry fields",
+        "status": "harvested",
+        "date": "2024-06-01"
+    }
+}
+
+
+ 4. setOrganic
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "setOrganic",
+        "productID": "PROD1234",
+        "role": "govt"
+    }
+}
+
+
+ 5. updateStatus
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "updateStatus",
+        "productID": "PROD1234",
+        "status": "Delivered",
+        "role": "distributor"
+    }
+}
+
+
+ 6. buyProduct
+json
+{
+    "chaincodeName": "fabcar",
+    "channelName": "mychannel",
+    "userId": "rayana",
+    "orgMSP": "Org2MSP",
+    "data": {
+        "function": "buyProduct",
+        "productID": "PROD1234",
+        "quantity": "50",
+        "role": "customer"
+    }
+}
+
+
+
+
+Each of these requests is formatted to invoke the respective function in the chaincode via the endpoint http://localhost:4000/tx with a POST method.
